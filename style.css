@@ -66,3 +66,17 @@ textarea,
 .hidden {
   display: none;
 }
+
+/* for test marked library */
+#textArea {
+  position: absolute;
+  width: 20vw;
+}
+#main {
+  position: absolute;
+  width: 20vw;
+  height: 400px;
+  background-color: aquamarine;
+  right: 50px;
+}
+/* for test marked library */

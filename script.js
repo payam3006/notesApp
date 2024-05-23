@@ -81,9 +81,15 @@ if (localStorage.getItem("notesId") == null) {
     )})"></textarea>`;
 
     body.appendChild(newNote);
+    // document.getElementById(
+    //   `text${idToIndex(notesId[i])}`
+    // ).innerText = `${localStorage.getItem(notesId[i])}`;
+
+    //////////////use marked library////////////////////////
     document.getElementById(
       `text${idToIndex(notesId[i])}`
-    ).innerText = `${localStorage.getItem(notesId[i])}`;
+    ).innerHTML = `${localStorage.getItem(notesId[i])}`;
+    ///////////////////////////////////////////////////////
   }
 }
 
@@ -92,9 +98,13 @@ if (localStorage.getItem("notesId") == null) {
 const openTextArea = (index) => {
   // eval(`focusedArea${index}` + `=` + `true;`);
   document.getElementById(`note${index}`).classList.remove("hidden");
-  document.getElementById(`note${index}`).value = document.getElementById(
-    `text${index}`
-  ).innerText;
+  // document.getElementById(`note${index}`).value = document.getElementById(
+  //   `text${index}`
+  // ).innerText;
+
+  document.getElementById(`note${index}`).value = localStorage.getItem(
+    `textForEdit${index}`
+  );
 
   document.getElementById(`note${index}`).focus();
 
@@ -102,16 +112,34 @@ const openTextArea = (index) => {
 };
 
 const closeTextArea = (index) => {
-  document.getElementById(`text${index}`).innerText = document.getElementById(
-    `note${index}`
-  ).value;
+  // document.getElementById(`text${index}`).innerText = document.getElementById(
+  //   `note${index}`
+  // ).value;
+
+  //////////////use marked library////////////////////////
+  document.getElementById(`text${index}`).innerHTML = marked(
+    document.getElementById(`note${index}`).value
+  );
+
+  ///////LocalStorage for reverse marked!///////
+  localStorage.setItem(
+    `textForEdit${index}`,
+    `${document.getElementById(`note${index}`).value}`
+  );
+  // q(document.getElementById(`note${index}`).value);
+  ///////////////////////////////////////////////////////
 
   document.getElementById(`note${index}`).classList.add("hidden");
 
   //////////////LocalStorage////////////////////////
+  // localStorage.setItem(
+  //   `note${index}`,
+  //   `${document.getElementById(`text${index}`).innerText}`
+  // );
+  //////////////use marked library////////////////////////
   localStorage.setItem(
     `note${index}`,
-    `${document.getElementById(`text${index}`).innerText}`
+    `${document.getElementById(`text${index}`).innerHTML}`
   );
   /////////////////////////////////////////////////
 };
@@ -165,7 +193,12 @@ const addNote = () => {
 
 //////////////////////////////////////////////////
 
-// window.addEventListener("unload", () => {
-//   localStorage.setItem("note1", "someData");
+// const main = document.getElementById("main");
+// document.getElementById("textarea").addEventListener("input", (e) => {
+//   q(e.target);
+//   const { value } = e.target;
+
+//   q(value);
+//   q(marked(value));
+//   main.innerHTML = marked(value);
 // });
-// localStorage.clear();
