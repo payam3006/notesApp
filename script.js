@@ -73,9 +73,7 @@ if (localStorage.getItem("notesId") == null) {
       notesId[i]
     )})"></i>
     </div>
-    <div id="text${idToIndex(
-      notesId[i]
-    )}" class="textarea">${localStorage.getItem(notesId[i])}</div>
+    <div id="text${idToIndex(notesId[i])}" class="textarea"></div>
     <textarea id="note${idToIndex(
       notesId[i]
     )}" class="hidden" onfocusout="closeTextArea(${idToIndex(
@@ -83,6 +81,9 @@ if (localStorage.getItem("notesId") == null) {
     )})"></textarea>`;
 
     body.appendChild(newNote);
+    document.getElementById(
+      `text${idToIndex(notesId[i])}`
+    ).innerText = `${localStorage.getItem(notesId[i])}`;
   }
 }
 
